@@ -1,22 +1,22 @@
 CXX := g++
 CXXFLAGS := -std=c++17 -O2 -Wall -Wextra
 
-TARGET := landin
-SRCS := landin.cpp
-OBJS := landin.o
+TARGET := cpp_example
+SRCS := cpp_example.cpp
+OBJS := cpp_example.o
 
 .PHONY: all clean run
 
-all: landin
+all: cpp_example
 
-landin: landin.o
-	$(CXX) $(CXXFLAGS) -o landin landin.o
+cpp_example: cpp_example.o
+	$(CXX) $(CXXFLAGS) -o cpp_example cpp_example.o
 
-landin.o: landin.cpp
-	$(CXX) $(CXXFLAGS) -c -o landin.o landin.cpp
+cpp_example.o: cpp_example.cpp
+	$(CXX) $(CXXFLAGS) -c -o cpp_example.o cpp_example.cpp
 
 run: all
-	./landin
+	./cpp_example
 
 clean:
-	rm -f landin.o
+	rm -f cpp_example.o
