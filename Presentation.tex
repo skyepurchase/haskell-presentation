@@ -196,7 +196,7 @@
        \item{Introduction}
        \item{Syntax \& type setting}
        \item{Using Haskell}
-       \item{Landin's knot, Haskell vs c++}
+       \item{Landin's knot, Haskell vs C++}
        \item{Applications}
        \item{Conclusion}
    \end{itemize}
@@ -205,7 +205,7 @@
 
 
 \begin{frame}{Introduction}
-	Haskell is a purely functional programming language.
+    Haskell is a purely functional programming language. \textbf{No side effects, not even printing.}
 
     \begin{itemize}
         \item{Lazy evaluation}
@@ -215,8 +215,38 @@
     This makes it ideal for critical applications.
 \end{frame}
 
-\begin{frame}[fragile]{Sytnax \& types}
-    Yeah no idea - you do what you think is best here.
+\begin{frame}[fragile]{Syntax \& Types: The Basics}
+    Everything in Haskell is a function. And all functions in Haskell have a type.
+    Modules are in PascalCase and functions are in camelCase.
+    \begin{minted}{haskell}
+       module MyModule where
+
+       binaryAdd :: Int -> Int -> Int
+       binaryAdd a b = a + b
+       add2 -> binaryAdd 2
+
+       -- in ghci
+       >> :load MyModule
+       >> binaryAdd 4 5
+       9
+    \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Syntax \& Types: Types}
+    Types determine what the expected input and output will be. These can be strict and static (Java, C++) or loose and dynamic (Python, Typescript).
+
+    The benefits of Haskell are
+    \begin{itemize}
+        \item \textbf{Type inference} The type checker can figure out exactly what type some data should.
+        \item \textbf{Type classes} Similar to a \texttt{enum} except for types and can be used in \texttt{match} statements.
+        \item \textbf{Higher-order types} A ``functions" that take in a type and produce a brand new type.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Syntax \& Types: Monads}
+    Haskell has a lot of jokes about monads ``monads are monoids in the category of endofunctors" or ``monads are just borritos". \\
+
+    Without going into details, these primarily allow you to have side effects in a purely functional language.
 \end{frame}
 
 \begin{frame}{How to use}
@@ -249,13 +279,22 @@ Makes the code more efficient and can help stop runtime errors :).
             ys = 1 : xs
         print (take 20xs)
     \end{minted}
-    We will show this in action in VScode and what happens when we try to do it in c++.
+    We will show this in action in VScode and what happens when we try to do it in C++.
 
 
 \end{frame}
 
-\begin{frame}{Type-checking}
+\begin{frame}[fragile]{Type-checking}
+    It is possible to create a program that does not type check but does in C++
+    \newline \textbf{Syntax:}
+    \begin{minted}{haskell}
+       import Text.Printf (printf)
 
+       main :: IO ()
+       main = do
+        printf "%s" (1::Int)
+    \end{minted}
+    We will show this in action in VScode and what happens when we try to do it in C++.
 \end{frame}
 
 
@@ -269,8 +308,11 @@ Makes the code more efficient and can help stop runtime errors :).
     Other key reasons include Maintainability and formal verification.
 \end{frame}
 
-\begin{frame}{Conclusion}
-
+\begin{frame}{Conclusion: Why use Haskell?}
+    \begin{itemize}
+        \item Haskell an incredibly powerful language with a very steep learning curve.
+        \item The strong typing and functional nature make it perfect for safe multi-threading.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -281,8 +323,23 @@ Makes the code more efficient and can help stop runtime errors :).
        \item{\textbf{Dangling pointers} - References are managed by the runtime system as Haskell uses no raw pointers. In C++, incorrect pointer handling can cause faults!}
        \item{\textbf{Complexity of implementing laziness}. Laziness is built into Haskell whereas manual tricks are needed in C++ which makes it error prone.}
    \end{itemize}
+\end{frame}
 
-   In Haskell, this is safe however in C++, it can fail at runtime!
+\begin{frame}[fragile]
+    \frametitle{Monads}
+    Monads have the following syntax
+    \begin{minted}{haskell}
+       class Monad m where
+         (>>=)   :: m a -> ( a -> m b ) -> m b
+         return  ::   a                 -> m a
+         -- (>>) :: m a ->  m b         -> m b
+    \end{minted}
+    where
+    \begin{minted}{haskell}
+       return a >>= k                 = k a
+       m        >>= return            = m
+       m >>= (\x -> k x >>= h) = (m >>= k) >>= h
+    \end{minted}
 \end{frame}
 
 
