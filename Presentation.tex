@@ -171,7 +171,7 @@
 
 \begin{frame}
 	\titlepage % Output the title slide, automatically created using the text entered in the PRESENTATION INFORMATION block above
- 
+
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -191,7 +191,7 @@
 
 \subsection{Paragraphs and Lists}
 
-\begin{frame}{Contents} 
+\begin{frame}{Contents}
    \begin{itemize}
        \item{Introduction}
        \item{Syntax \& type setting}
@@ -205,7 +205,7 @@
 
 
 \begin{frame}{Introduction}
-	Haskell is a purely functional programming language. 
+	Haskell is a purely functional programming language.
 
     \begin{itemize}
         \item{Lazy evaluation}
@@ -216,7 +216,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Sytnax \& types}
-    Yeah no idea - you do what you think is best here. 
+    Yeah no idea - you do what you think is best here.
 \end{frame}
 
 \begin{frame}{How to use}
@@ -229,36 +229,38 @@
 \end{frame}
 
 \begin{frame}[fragile]
-   \frametitle{Landin's knot}
-   Landin's knot is a technique for implementing recursive structures without explicit recursion which is often used when implementing cyclic data structures or self-referential closures. 
-   \begin{itemize}
-       \item{\textbf{Manual Memory management} - In Haskell Garbage collection automatically handles cycles safely whereas in C++ cyclic structures risk memory leaks}
-       \item{\textbf{Dangling pointers} - References are managed by the runtime system as Haskell uses no raw pointers. In C++, incorrect pointer handling can cause faults!}   
-       \item{\textbf{Complexity of implementing laziness}. Laziness is built into Haskell whereas manual tricks are needed in C++ which makes it error prone.}
-   \end{itemize}
-
-   In Haskell, this is safe however in C++, it can fail at runtime!
+   \frametitle{Lazy evaluation}
+  Haskell has lazy evaluation built into it. This means that expressions are not evaluated until their values are actually needed. \textbf{How it works:}
+  \begin{itemize}
+      \item Computations are deferred
+      \item Values are represented as thunks
+      \item Evaluation happens only when required for
+  \end{itemize}
+Makes the code more efficient and can help stop runtime errors :).
 \end{frame}
 
-\begin{frame}[fragile]{Landin's knot - code snippet} 
-    We show the syntax for creating two mutually dependent lists. 
+\begin{frame}[fragile]{Lazy evaluation - code snippet}
+    We show the syntax for creating two mutually dependent lists.
     \newline \textbf{Syntax:}
     \begin{minted}{haskell}
-       -- Create two lists that refer to each other
-       let xs = 0 : ys
-           ys = 1 : xs
-
-       take 10 xs
-       -- Output: [0,1,0,1,0,1,0,1,0,1]
+       main :: IO ()
+       main = do
+        let xs = 0 : ys
+            ys = 1 : xs
+        print (take 20xs)
     \end{minted}
-    
-   
-  
+    We will show this in action in VScode and what happens when we try to do it in c++.
+
+
+\end{frame}
+
+\begin{frame}{Type-checking}
+
 \end{frame}
 
 
 \begin{frame}{Applications}
-    Haskell is used in Industry when is crucial that the code is fail-safe. Some applications: 
+    Haskell is used in Industry when is crucial that the code is fail-safe. Some applications:
     \begin{itemize}
         \item{\textbf{Facebook} - anti-Spam systems}
         \item{\textbf{Github} - Entire blockchain is written in Haskell}
@@ -267,11 +269,21 @@
     Other key reasons include Maintainability and formal verification.
 \end{frame}
 
-
-
 \begin{frame}{Conclusion}
-    
+
+\end{frame}
+
+\begin{frame}[fragile]
+   \frametitle{Landin's knot}
+   Landin's knot is a technique for implementing recursive structures without explicit recursion which is often used when implementing cyclic data structures or self-referential closures.
+   \begin{itemize}
+       \item{\textbf{Manual Memory management} - In Haskell Garbage collection automatically handles cycles safely whereas in C++ cyclic structures risk memory leaks}
+       \item{\textbf{Dangling pointers} - References are managed by the runtime system as Haskell uses no raw pointers. In C++, incorrect pointer handling can cause faults!}
+       \item{\textbf{Complexity of implementing laziness}. Laziness is built into Haskell whereas manual tricks are needed in C++ which makes it error prone.}
+   \end{itemize}
+
+   In Haskell, this is safe however in C++, it can fail at runtime!
 \end{frame}
 
 
-\end{document} 
+\end{document}
