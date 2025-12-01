@@ -1,22 +1,27 @@
 CXX := g++
-CXXFLAGS := -std=c++17 -O2 -Wall -Wextra
+CXXFLAGS := -std=c++17 -O2 # -Wall -Wextra
 
-TARGET := cpp_example
-SRCS := cpp_example.cpp
-OBJS := cpp_example.o
+TYPE := type_unsafe
+LAZY := lazy_list
 
-.PHONY: all clean run
+TYPE_SRCS := type_unsafe.cpp
+LAZY_SRCS := lazy_list.cpp
 
-all: cpp_example
+TYPE_OBJS := type_unsafe.o
+LAZY_OBJS := lazy_list.o
 
-cpp_example: cpp_example.o
-	$(CXX) $(CXXFLAGS) -o cpp_example cpp_example.o
+.PHONY: all clean
 
-cpp_example.o: cpp_example.cpp
-	$(CXX) $(CXXFLAGS) -c -o cpp_example.o cpp_example.cpp
+all: $(TYPE) $(LAZY)
 
-run: all
-	./cpp_example
+$(TYPE): $(TYPE_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(LAZY): $(LAZY_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm -f cpp_example.o
+	rm -f $(TYPE_OBJS) $(LAZY_OBJS) $(TYPE) $(LAZY)
