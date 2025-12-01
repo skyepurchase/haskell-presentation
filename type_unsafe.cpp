@@ -1,3 +1,6 @@
 #include <cstdio>
 
-int main() { printf("This is definitely the integer 1: %i", "2"); }
+int main() {
+  int i = 1;
+  printf("%s", i);
+}
